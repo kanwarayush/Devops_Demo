@@ -3,7 +3,7 @@ name: Devops
 on:
   push:
 
-job:
+jobs:
   devops:
     runs-on: ubuntu-latest
 
