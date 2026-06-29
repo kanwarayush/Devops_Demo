@@ -1,0 +1,38 @@
+name: Devops
+
+on:
+  push:
+
+job:
+  devops:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    -uses: actions/checkout@v4
+
+    -name: Docker build Image
+    run: docker build -t devops_demo:v1 .
+
+    -name: Docker run
+    run: docker run devops_demo:v1
+
+    -name: install terraform
+    uses: hashicorp/setup-terraform@v3
+
+    -name: initialize terraform
+    working-directory: terraform
+    run: terraform init
+
+    -name: terraform validate
+    working-directory: terraform
+    run: terraform validate
+
+    -name: terraform plan
+    working-directory: terraform
+    run: terraform plan
+
+    -name: terraform apply
+    working-directory: terraform
+    run: terraform plan -auto-approve
+
